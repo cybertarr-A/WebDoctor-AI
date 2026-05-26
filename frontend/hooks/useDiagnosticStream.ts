@@ -54,6 +54,9 @@ export function useDiagnosticStream() {
     };
 
     eventSource.onerror = (err) => {
+      if (eventSource.readyState === EventSource.CLOSED) {
+        return;
+      }
       console.error("EventSource failed:", err);
       addNotification("Disconnected from diagnostic stream. Falling back...", "warning");
       eventSource.close();
