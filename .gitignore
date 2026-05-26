@@ -1,0 +1,40 @@
+# Dependency directories
+node_modules/
+frontend/node_modules/
+backend/venv/
+venv/
+
+# Next.js build output
+.next/
+frontend/.next/
+out/
+frontend/out/
+build/
+frontend/build/
+
+# Local databases & zip files
+backend/webdoctor.db
+backend/webdoctor-backend.zip
+*.db
+*.sqlite
+
+# Environment variables & secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+
+# Python caching
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# OS specific files
+.DS_Store
+Thumbs.db
