@@ -36,8 +36,8 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # Setup CORS Policies
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -46,10 +46,28 @@ app.add_middleware(
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
     start_time = time.perf_counter()
-    response = await call_next(request)
-    process_time = time.perf_counter() - start_time
-    response.headers["X-Process-Time"] = str(process_time)
-    return response
+
+    try:
+        response = await call_next(request)
+
+        process_time = time.perf_counter() - start_time
+        response.headers["X-Process-Time"] = f"{process_time:.4f}"
+
+        return response
+
+    except Exception as e:
+        logger.error(
+            f"Middleware error: {str(e)}",
+            exc_info=True
+        )
+
+        return JSONResponse(
+            status_code=500,
+            content={
+                "status": "error",
+                "message": str(e)
+            }
+        )
 
 # Production global error handling boundary
 @app.exception_handler(Exception)
