@@ -30,4 +30,4 @@ COPY app/ ./app/
 EXPOSE 8000
 
 # Execute server with dynamic port binding for Railway deployment
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD sh -c "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"
