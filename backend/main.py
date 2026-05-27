@@ -1,3 +1,4 @@
+import os
 import time
 import logging
 from fastapi import FastAPI, Request, status
@@ -16,6 +17,31 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]
 )
 logger = logging.getLogger("webdoctor")
+
+# Startup Environment Validation
+def validate_environment():
+    required_vars = {
+        "SUPABASE_URL": settings.SUPABASE_URL or os.getenv("SUPABASE_URL"),
+        "SUPABASE_SERVICE_ROLE_KEY": (
+            settings.SUPABASE_SERVICE_ROLE_KEY or 
+            os.getenv("SUPABASE_SERVICE_ROLE_KEY") or 
+            settings.SUPABASE_KEY or 
+            os.getenv("SUPABASE_KEY")
+        ),
+        "GROQ_API_KEY": settings.GROQ_API_KEY or os.getenv("GROQ_API_KEY")
+    }
+    
+    missing_vars = [var for var, val in required_vars.items() if not val]
+    
+    if missing_vars:
+        logger.warning(
+            f"⚠️  MISSING REQUIRED ENVIRONMENT VARIABLES: {', '.join(missing_vars)}. "
+            f"Some features may not function correctly. Application will continue running safely using SQLite fallback."
+        )
+    else:
+        logger.info("✅ All required environment variables are set correctly.")
+
+validate_environment()
 
 # Setup Rate Limiter
 limiter = Limiter(key_func=get_remote_address)

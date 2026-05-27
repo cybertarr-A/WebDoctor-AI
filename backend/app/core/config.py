@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     GROQ_API_KEY: str = ""
     SUPABASE_URL: str = ""
     SUPABASE_KEY: str = ""
+    SUPABASE_SERVICE_ROLE_KEY: str = ""
     GOOGLE_PAGESPEED_API_KEY: str = ""
     WAPPALYZER_API_KEY: str = ""
     

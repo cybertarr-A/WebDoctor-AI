@@ -4,10 +4,19 @@ import sqlite3
 import logging
 from typing import Dict, Any, List, Optional
 from datetime import datetime
-from supabase import create_client, Client
 from app.core.config import settings
 
 logger = logging.getLogger("webdoctor")
+
+# Wrap Supabase imports to prevent crashes if library is missing
+try:
+    from supabase import create_client, Client
+    HAS_SUPABASE = True
+except ImportError as e:
+    logger.warning(f"Supabase library not installed: {e}. Falling back to Local SQLite.")
+    create_client = None
+    Client = Any  # type fallback
+    HAS_SUPABASE = False
 
 # Database client wrapper
 class DatabaseBroker:
@@ -16,10 +25,19 @@ class DatabaseBroker:
         self.sqlite_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "webdoctor.db")
         self.use_supabase = False
         
+        # Support both SUPABASE_SERVICE_ROLE_KEY and SUPABASE_KEY
+        supabase_url = settings.SUPABASE_URL or os.getenv("SUPABASE_URL")
+        supabase_key = (
+            settings.SUPABASE_SERVICE_ROLE_KEY or 
+            os.getenv("SUPABASE_SERVICE_ROLE_KEY") or 
+            settings.SUPABASE_KEY or 
+            os.getenv("SUPABASE_KEY")
+        )
+        
         # Determine if we should attempt Supabase connection
-        if settings.SUPABASE_URL and settings.SUPABASE_KEY:
+        if HAS_SUPABASE and supabase_url and supabase_key:
             try:
-                self.supabase_client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
+                self.supabase_client = create_client(supabase_url, supabase_key)
                 self.use_supabase = True
                 logger.info("Connected successfully to Supabase Cloud Database.")
             except Exception as e:
