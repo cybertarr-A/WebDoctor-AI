@@ -5,7 +5,11 @@ pydantic-settings>=2.4.0
 httpx>=0.24.0,<0.26.0
 beautifulsoup4==4.12.3
 groq==0.5.0
-supabase==2.3.7
+supabase==2.15.3
+postgrest>=0.19.3
+realtime>=2.4.3
+gotrue>=2.11.3
+storage3>=0.11.3
 slowapi==0.1.9
 python-dotenv==1.0.1
 jinja2==3.1.3
