@@ -49,20 +49,43 @@ export default function LandingPage() {
       try {
         const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
         
-        // Fetch recent scans for star-field coordinates
-        const recentRes = await fetch(`${apiBase}/api/v1/scans/recent`);
-        if (recentRes.ok) {
-          const scans = await recentRes.json();
-          setRecentScans(scans);
-        }
+        const safeFetch = async (url: string) => {
+          try {
+            const res = await fetch(url);
+            if (res.ok) return await res.json();
+          } catch (e) {
+            console.warn(`safeFetch failed for ${url}:`, e);
+          }
+          return null;
+        };
 
-        // Preload default demo report to make dashboard immediately interactive on load
-        const demoRes = await fetch(`${apiBase}/api/v1/scan/demo`);
-        if (demoRes.ok) {
-          const demoData = await demoRes.json();
-          setActiveReport(demoData);
+        const scans = await safeFetch(
+          `${apiBase}/api/v1/scans/recent`
+        );
+
+        if (
+          scans &&
+          scans.length > 0
+        ) {
+          setRecentScans(
+            scans
+          );
+
+          const latestScan =
+            scans[0];
+
+          const report =
+            await safeFetch(
+              `${apiBase}/api/v1/scan/${latestScan.id}`
+            );
+
+          if (report) {
+            setActiveReport(
+              report
+            );
+          }
         } else {
-          // Robust local simulated fallback report in case backend is offline
+          // Robust local simulated fallback report in case backend is offline/empty
           const fallbackDemo = {
             id: "demo",
             overall_score: 88,
