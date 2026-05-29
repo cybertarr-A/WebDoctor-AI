@@ -2,7 +2,8 @@
 
 > AI-Powered Website Health Scanner, Security Auditor, SEO Analyzer, and Performance Diagnostics Platform.
 
-![WebDoctor AI Banner](https://via.placeholder.com/1200x400?text=WebDoctor+AI)
+<img width="1920" height="996" alt="image" src="https://github.com/user-attachments/assets/3dfc9f96-0689-4538-9c15-cfc339d13a01" />
+
 
 ## 🚀 Overview
 
