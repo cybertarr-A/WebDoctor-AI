@@ -1,147 +1,354 @@
-# WebDoctor AI - Intelligent Website Diagnostics Engine
+# 🩺 WebDoctor AI
 
-WebDoctor AI is an enterprise-grade SaaS platform that acts as an "intelligent doctor" for websites. Enter any URL to compile real-time diagnostic reports, evaluate transport security, map technical frameworks, calculate standardized metrics, and generate deep, actionable AI-powered recommendations.
+> AI-Powered Website Health Scanner, Security Auditor, SEO Analyzer, and Performance Diagnostics Platform.
+
+![WebDoctor AI Banner](https://via.placeholder.com/1200x400?text=WebDoctor+AI)
+
+## 🚀 Overview
+
+WebDoctor AI is an intelligent website diagnostics platform that analyzes websites across multiple dimensions including:
+
+* ⚡ Performance
+* 🔒 Security
+* 🔍 SEO
+* 🌐 Domain Intelligence
+* 🛠 Technology Stack Detection
+* 🤖 AI-Powered Recommendations
+
+Simply enter a website URL and WebDoctor AI performs a comprehensive audit, generating actionable insights to improve website quality, speed, security, and search engine visibility.
 
 ---
 
-## 🛠️ Technology Stack
-* **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS, Framer Motion, Lucide Icons
-* **Backend**: FastAPI (Python 3.11), Async IO, Pydantic v2, HTTPX, BeautifulSoup4, SlowAPI, SQLite
-* **Database**: Supabase Cloud
-* **AI Engine**: Groq Llama-3 AI / Heuristics Compiler
-* **DevOps**: Docker, multi-stage builders
+## ✨ Features
+
+### 🔒 Security Analysis
+
+* HTTPS verification
+* Security header inspection
+* SSL/TLS validation
+* Vulnerability indicators
+* Security score generation
+
+### ⚡ Performance Diagnostics
+
+* Core performance evaluation
+* Loading speed analysis
+* Optimization opportunities
+* Website efficiency scoring
+
+### 🔍 SEO Audit
+
+* Meta title analysis
+* Meta description validation
+* Heading structure inspection
+* Search engine optimization recommendations
+* SEO score generation
+
+### 🌐 Domain Intelligence
+
+* WHOIS information lookup
+* Domain age detection
+* Registration insights
+* Ownership metadata
+
+### 🛠 Technology Detection
+
+Identify technologies used by a website:
+
+* Next.js
+* React
+* Vue
+* Angular
+* WordPress
+* Tailwind CSS
+* Bootstrap
+* CDN Providers
+* Analytics Tools
+* And more...
+
+### 🤖 AI Recommendations
+
+Powered by modern LLMs to provide:
+
+* Improvement suggestions
+* Technical recommendations
+* Security enhancements
+* SEO optimization guidance
+* Performance fixes
 
 ---
 
-## 🏗️ Folder Structure
+## 🏗 Architecture
+
 ```text
-webdoctor-ai/
+                ┌─────────────────────┐
+                │     Frontend UI     │
+                │ Next.js + React 19  │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │    FastAPI Backend  │
+                └──────────┬──────────┘
+                           │
+        ┌──────────────────┼──────────────────┐
+        ▼                  ▼                  ▼
+ ┌────────────┐    ┌────────────┐    ┌────────────┐
+ │ SEO Scan   │    │ Security   │    │ Performance│
+ │ Engine     │    │ Scanner    │    │ Scanner    │
+ └────────────┘    └────────────┘    └────────────┘
+        ▼                  ▼                  ▼
+ ┌────────────────────────────────────────────┐
+ │          AI Analysis Engine                │
+ └────────────────────────────────────────────┘
+                           ▼
+                ┌─────────────────────┐
+                │  Final Report JSON  │
+                └─────────────────────┘
+```
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+* Next.js 15
+* React 19
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+* Three.js
+* React Three Fiber
+* Zustand
+
+### Backend
+
+* FastAPI
+* Python 3.11+
+* Pydantic v2
+* HTTPX
+* BeautifulSoup4
+* Python WHOIS
+* SlowAPI
+
+### AI
+
+* Groq API
+* Llama Models
+* OpenAI Compatible APIs
+
+### Database
+
+* SQLite
+* Supabase
+
+### DevOps
+
+* Docker
+* Railway
+* Vercel
+
+---
+
+## 📂 Project Structure
+
+```text
+WebDoctor-AI
+│
 ├── frontend/
-│   ├── app/                # Next.js 15 pages (Home, Dashboard)
-│   ├── components/ui/      # Animated radial dials, custom widgets
-│   ├── package.json
-│   ├── tailwind.config.js
-│   └── tsconfig.json
+│   ├── app/
+│   ├── components/
+│   │   ├── 3d/
+│   │   └── ui/
+│   ├── hooks/
+│   ├── lib/
+│   └── styles/
 │
 ├── backend/
 │   ├── app/
-│   │   ├── api/v1/         # Scan controllers and download links
-│   │   ├── core/           # Pydantic base configuration settings
-│   │   ├── services/       # Async pipeline orchestrator
-│   │   │   └── scanners/   # Micro-scanners (SEO, Perf, Sec, Tech, Domain)
-│   │   ├── schemas/        # Request & Response contracts
-│   │   └── utils/          # Resilient Supabase / SQLite database broker
-│   ├── Dockerfile
+│   │   ├── api/
+│   │   ├── services/
+│   │   │   └── scanners/
+│   │   ├── schemas/
+│   │   ├── core/
+│   │   └── utils/
 │   ├── requirements.txt
+│   ├── Dockerfile
 │   └── main.py
 │
-└── README.md               # Operations manual
+└── README.md
 ```
 
 ---
 
-## 🚀 Local Installation & Execution
+## ⚙️ Installation
 
-### 1. Backend Server Setup
-Navigate to the `backend/` directory, copy settings, and spin up dependencies:
+### Clone Repository
+
 ```bash
-# Navigate to backend folder
+git clone https://github.com/cybertarr-A/WebDoctor-AI.git
+
+cd WebDoctor-AI
+```
+
+---
+
+### Backend Setup
+
+```bash
 cd backend
 
-# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-# Install libraries
+source venv/bin/activate
+# Windows
+# venv\Scripts\activate
+
 pip install -r requirements.txt
 
-# Start Uvicorn developer worker using virtual environment path
-./venv/bin/uvicorn main:app --reload --port 8000
+uvicorn main:app --reload --port 8000
 ```
-> [!NOTE]
-> WebDoctor AI initializes a local SQLite file `webdoctor.db` in the workspace automatically if Supabase environment variables are not populated.
 
-### 2. Frontend Application Setup
-Navigate to the `frontend/` directory, resolve node packages, and launch Next.js:
+Backend runs at:
+
+```text
+http://localhost:8000
+```
+
+---
+
+### Frontend Setup
+
 ```bash
-# Navigate to frontend folder
-cd ../frontend
+cd frontend
 
-# Install node dependencies
 npm install
 
-# Start Next.js developer hot-reloader
 npm run dev
 ```
-Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
----
+Frontend runs at:
 
-## 📡 REST API Documentation
-
-### 1. Synchronous Diagnostics Scan
-* **URL**: `/api/v1/analyze`
-* **Method**: `POST`
-* **Request Payload**:
-  ```json
-  {
-    "url": "https://example.com"
-  }
-  ```
-* **Response Details**:
-  ```json
-  {
-    "id": "e4a78b5e90df341a",
-    "url": "https://example.com",
-    "overall_score": 85,
-    "seo_score": 84,
-    "performance_score": 80,
-    "security_score": 90,
-    "accessibility_score": 88,
-    "technology_score": 90,
-    "technology": ["Next.js", "React", "Cloudflare"],
-    "issues": [
-      "Missing Strict-Transport-Security (HSTS) header"
-    ],
-    "recommendations": [
-      "Configure HSTS at your web server level to block downgrade vectors."
-    ]
-  }
-  ```
-
-### 2. Retrieve Historical Audit
-* **URL**: `/api/v1/scan/{scan_id}`
-* **Method**: `GET`
-
-### 3. Exclude List Logs
-* **URL**: `/api/v1/scans/recent`
-* **Method**: `GET`
-
-### 4. Text Report Stream Download
-* **URL**: `/api/v1/scan/{scan_id}/download`
-* **Method**: `GET`
-
----
-
-## ☁️ Cloud Deployments
-
-### 🐳 Docker Execution (Local Containerization)
-Ensure Docker is installed, then build and boot the container:
-```bash
-# Build multi-stage image
-docker build -t webdoctor-backend ./backend
-
-# Spin up backend mapping port 8000
-docker run -p 8000:8000 webdoctor-backend
+```text
+http://localhost:3000
 ```
 
-### 🚆 Railway (FastAPI Deployment)
-1. Fork your project to GitHub.
-2. Sign in to **[Railway.app](https://railway.app/)** and link your repository.
-3. Railway automatically detects the root `backend/Dockerfile` and spins up the FastAPI container.
-4. Input env keys in Railway settings (`GROQ_API_KEY`, `SUPABASE_URL`, etc.).
+---
 
-### ⚡ Vercel (Next.js Deployment)
-1. Link your repo to **[Vercel](https://vercel.com/)**.
-2. Configure **Framework Preset** to `Next.js`.
-3. Add a proxy mapping or input your Railway domain as the backend environment pointer.
+## 🔑 Environment Variables
+
+Create a `.env` file inside the backend directory.
+
+```env
+GROQ_API_KEY=your_groq_api_key
+
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+
+OPENAI_API_KEY=optional
+```
+
+---
+
+## 📡 API Usage
+
+### Analyze Website
+
+**Endpoint**
+
+```http
+POST /api/v1/analyze
+```
+
+### Request
+
+```json
+{
+  "url": "https://example.com"
+}
+```
+
+### Response
+
+```json
+{
+  "overall_score": 91,
+  "seo_score": 88,
+  "security_score": 95,
+  "performance_score": 86,
+  "technology_score": 92,
+  "recommendations": [
+    "Enable image compression",
+    "Add missing security headers",
+    "Optimize meta descriptions"
+  ]
+}
+```
+
+---
+
+## 🎯 Use Cases
+
+* Website Auditing
+* SEO Analysis
+* Security Reviews
+* Client Reporting
+* Digital Agencies
+* Freelance Developers
+* Startup Website Monitoring
+* Technical Due Diligence
+
+---
+
+## 🖥 Live Demo
+
+```text
+https://web-doctor-ai.vercel.app
+```
+
+---
+
+## 🚀 Future Roadmap
+
+* Real Lighthouse Integration
+* Accessibility Audits
+* PDF Report Exports
+* Continuous Monitoring
+* Competitor Comparison
+* AI Website Optimization Agent
+* Historical Tracking Dashboard
+* Multi-Page Crawling
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+```bash
+fork → clone → develop → commit → pull request
+```
+
+For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+## 📜 License
+
+MIT License
+
+---
+
+## 👨‍💻 Author
+
+**Aditya (Cybertarr-A)**
+
+AI Engineer • Full Stack Developer • Researcher
+
+GitHub:
+https://github.com/cybertarr-A
+
+---
+
+### ⭐ If you find WebDoctor AI useful, please star the repository and share it with others.
